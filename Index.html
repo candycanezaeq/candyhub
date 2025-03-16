@@ -1,0 +1,288 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CandyHub</title>
+  <style>
+    :root {
+      --primary: #ff66b2;
+      --secondary: #ff99cc; 
+      --background: #1a1a1a;
+      --text: #ffffff;
+      --card-bg: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, var(--background), #2a1a2a);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    .header-container {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      color: var(--primary);
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px var(--secondary);
+      animation: glow 2s ease-in-out infinite alternate;
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px var(--secondary);
+      }
+      to {
+        text-shadow: 0 0 20px var(--primary), 0 0 30px var(--secondary);
+      }
+    }
+
+    #spinning-image {
+      width: 150px;
+      height: 150px;
+      animation: float 5s ease-in-out infinite;
+      margin: 20px auto;
+      filter: drop-shadow(0 0 15px var(--primary));
+      transition: transform 0.3s ease;
+    }
+
+    #spinning-image:hover {
+      transform: scale(1.1) rotate(15deg);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    .game-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px auto;
+      max-width: 800px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      width: 100%;
+    }
+
+    .game-list li {
+      perspective: 1000px;
+    }
+
+    .game-list a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.2rem;
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 15px;
+      display: block;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px solid transparent;
+      backdrop-filter: blur(5px);
+    }
+
+    .game-list a:hover {
+      transform: translateY(-10px) rotateX(10deg);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--primary);
+      box-shadow: 0 15px 30px rgba(255, 102, 178, 0.2);
+    }
+
+    .about-candycane {
+      margin: 40px auto;
+      max-width: 700px;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      transform: translateZ(0);
+      backdrop-filter: blur(5px);
+    }
+
+    .discord-link {
+      display: inline-block;
+      margin: 30px auto;
+      padding: 18px 35px;
+      background: linear-gradient(45deg, #5865F2, #7289da);
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 1.3rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .discord-link::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      transform: scale(0);
+      transition: transform 0.5s ease-out;
+    }
+
+    .discord-link:hover::before {
+      transform: scale(1);
+    }
+
+    .discord-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(88, 101, 242, 0.6);
+    }
+
+    h2 {
+      color: var(--secondary);
+      font-size: 2.2rem;
+      margin: 40px 0 30px;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: var(--secondary);
+      border-radius: 3px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .game-list {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 10px;
+      }
+      
+      #spinning-image {
+        width: 120px;
+        height: 120px;
+      }
+
+      .about-candycane {
+        padding: 20px;
+        margin: 20px 10px;
+        font-size: 1.1rem;
+      }
+
+      .discord-link {
+        padding: 15px 25px;
+        font-size: 1.1rem;
+      }
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes particle-float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: particle-float 15s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="particles">
+    <!-- Particles will be added by JavaScript -->
+  </div>
+
+  <div class="header-container">
+    <h1>CandyHub</h1>
+    <img id="spinning-image" src="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png" alt="Spinning Candycane Logo">
+  </div>
+
+  <h2>My Games</h2>
+  <ul class="game-list">
+    <li><a href="https://candycanezaeq.github.io/George-clicker-/" target="_blank">FLOYD CLICKER</a></li>
+    <li><a href="https://candycanezaeq.github.io/moonfly/" target="_blank">Moonfly</a></li>
+    <li><a href="https://candycanezaeq.github.io/achievement-for-everything-/" target="_blank">Achievement for Everything</a></li>
+    <li><a href="https://candycanezaeq.github.io/floyd-rng/" target="_blank">Floyd RNG</a></li>
+  </ul>
+
+  <h2>About Candycane</h2>
+  <div class="about-candycane">
+    <p>
+      Hi, I'm Candycane! I'm a developer who loves creating fun and quirky games. I'm always planning to make more stuff, and I'm open to ideas and suggestions from the community. If you have any cool ideas or just want to hang out, join my Discord server below!
+    </p>
+  </div>
+
+  <a class="discord-link" href="https://discord.gg/6CtmD6QFmY" target="_blank">Join My Discord Server</a>
+
+  <script>
+    // Add floating particles
+    const particlesContainer = document.querySelector('.particles');
+    for(let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = (Math.random() * 10) + 's';
+      particlesContainer.appendChild(particle);
+    }
+
+    // Add hover sound effect to links
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        const hoverSound = new Audio('data:audio/wav;base64,UklGRnQGAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YU8GAACBhYqFbF1fd4iXmH1uaHWEkZKMdmhceYeWmIJ0Z2p6i5WXhHNob3yMlZaEc2hxfY2WloRzaXJ/jpaWhHNqdICPl5aEc2t1gZCXloRza3aBkZiWg3NsdoKSmZaDc2x3g5OZlYJzbXiElJmUgXNueoWVmZOAc299hpaYkn9vcICHl5eQfnBxgoiXlo99cXOEipWUjXxydYaMlJKLe3R3h46TkIl6dXmJkJGOh3l3fIuSkIyFeXmAjZKPioN4e4KPko2If3p9hJGRi4Z+fH+Gk5CLhH19gYiUj4mCfX6Di5SOiIF+gISNlY2Gf3+ChY6UjISAgIOHkJOLgoGBhYqSkoiBgoOIjJGQh4GChImPkoqFgoSGi5COh4GDhomRkYmDg4WJjZKNhYKEh4ySkIeChIiLkZGKhIOFio+RjYWChYmOko+IgoOHjJGQioOChYuQkomEg4aJj5KMhoKEiY2TjoiCg4eM');
+        hoverSound.volume = 0.2;
+        hoverSound.play().catch(() => {});
+      });
+    });
+  </script>
+</body>
+</html>
